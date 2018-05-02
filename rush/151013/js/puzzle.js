@@ -1,1 +1,390 @@
-!function(o){var t,i;t=function(){function t(t,i){var e=this;e.el=o(t),e.btn=o("#start"),this.progressBar=o("#progressBar"),this.remainTime=o("#remainTime"),e.options=o.extend({},o.fn.puzzle.defaults,i),e.init()}return Array.prototype.swap=function(o,t){var i=this[o];return this[o]=this[t],this[t]=i,this},Array.prototype.indexOf=function(o){var t,i=this.length;for(t=0;t<i;++t)if(this[t]===o)return t;return-1},t.prototype={init:function(){var t,i,e,n=this,r=n.el.width();for(n.offset=n.el.offset(),n.blockMargin=.01*r,n.blockWidth=(r-n.blockMargin*(n.options.col-1))/n.options.col,n.blockHeight=(r-n.blockMargin*(n.options.row-1))/n.options.row,n.pos=[],n.order=[],n.block=[],n.num=n.options.row*n.options.col,t=0;t<n.options.row;++t)for(i=0;i<n.options.col;++i)e=t*n.options.col+i,n.pos[e]={x:i*(n.blockWidth+n.blockMargin),y:t*(n.blockHeight+n.blockMargin)},n.block.push(o("<div>")),n.block[e].css({width:n.blockWidth,height:n.blockHeight,"background-size":r+"px,"+r+"px","background-position-x":-n.pos[e].x,"background-position-y":-n.pos[e].y}).addClass("img-block"),n.el.append(n.block[e]),n.order[e]=e;n.locate(),this.playtime=0,n.refreshTime(),this.playing=!1,n.remainNum=o("#remainingNumber");var s=o("#phoDialogue");o("#pho-submit").on("click tap",function(){s.hide()}),n.btn.on("click tap",function(){if(!n.playing){var o=parseInt(n.remainNum.text());isNaN(o)||o<=0||(n.remainNum.text(o-1),n.start())}})},resize:function(){var o,t,i,e=this,n=e.el.width();for(e.offset=e.el.offset(),e.blockMargin=.01*n,e.blockWidth=(n-e.blockMargin*(e.options.col-1))/e.options.col,e.blockHeight=(n-e.blockMargin*(e.options.row-1))/e.options.row,e.pos=[],o=0;o<e.options.row;++o)for(t=0;t<e.options.col;++t)i=o*e.options.col+t,e.pos[i]={x:t*(e.blockWidth+e.blockMargin),y:o*(e.blockHeight+e.blockMargin)},e.block[i].css({width:e.blockWidth,height:e.blockHeight,"background-size":n+"px,"+n+"px","background-position-x":-e.pos[i].x,"background-position-y":-e.pos[i].y}).addClass("img-block"),e.el.append(e.block[i]);e.locate()},locate:function(){var o,t,i,e=this;for(o=0;o<e.options.row;++o)for(t=0;t<e.options.col;++t)i=o*e.options.col+t,e.block[e.order[i]].css({top:e.pos[i].y,left:e.pos[i].x})},start:function(){if(!this.playing){this.playing=!0,this.playtime=0;for(var o=0;o<this.num;++o)this.dragBlock(this.block[o]);this.order.sort(i.randomSort),this.locate(),this.play()}},refreshTime:function(){this.progressBar.css("width",this.playtime/this.options.playtime*100+"%"),this.remainTime.text((this.options.playtime-this.playtime).toFixed(2)+"秒")},play:function(){var o=this;if(o.playtime>=o.options.playtime){o.playtime=o.options.playtime,clearTimeout(o.timer),o.refreshTime();for(var t=0;t<o.num;++t)o.unDragBlock(o.block[t]);return void setTimeout(function(){o.alertInfo("高手太多</br>继续加油!"),o.playing=!1},500)}o.refreshTime(),o.playtime+=.01,o.timer=setTimeout(function(){o.play()},10)},dragBlock:function(o){var t=this;o.offset();o.on("touchstart",function(i){i.preventDefault();var e=i.touches[0],n=e.pageX-o.offset().left,r=e.pageY-o.offset().top;o.css("z-index",2),o.on("touchmove",function(i){var e=i.touches[0],s=e.pageX-t.offset.left-n,c=e.pageY-t.offset.top-r;o.css({top:c,left:s})}),o.on("touchend",function(i){t.updateOrder(o.index()),o.off("touchmove"),o.off("touchend")})})},unDragBlock:function(o){o.off("touchstart")},updateOrder:function(o){var t,i,e,n=this,r=n.block[o].offset().left+n.blockWidth/2,s=n.block[o].offset().top+n.blockHeight/2,c=-1;for(e=0;e<n.num;++e)if(e!==o&&(t=n.block[e].offset().left,i=n.block[e].offset().top,r>t&&r<t+n.blockWidth&&s>i&&s<i+n.blockHeight)){c=e;break}if(c===-1)n.move(n.block[o],n.order.indexOf(o));else if(r=n.order.indexOf(o),t=n.order.indexOf(c),n.block[c].css("z-index",1),n.move(n.block[o],t),n.move(n.block[c],r),n.order.swap(r,t),n.block[o].css("z-index",0),n.block[c].css("z-index",0),n.isSuccess()){for(clearTimeout(n.timer),e=0;e<n.num;++e)n.unDragBlock(n.block[e]);setTimeout(function(){n.playing=!1,n.alertInfo("500M<br/>恭喜您中奖了!")},500)}},move:function(o,t){o.css({top:this.pos[t].y,left:this.pos[t].x})},isSuccess:function(){var o;for(o=0;o<this.num;++o)if(this.order[o]!==o)return!1;return!0},alertInfo:function(t){o("#rstDialogue").show(),o(".zp-flow").html(t);var i=parseInt(this.remainNum.text());isNaN(i)||i<=0?o("#share-btn").text("分享活动").off("click tap").on("click tap",function(){o(".share-guide").show(),o(".guide-img").show()}):o("#share-btn").text("再来一次").off("click tap").on("click tap",function(){o("#rstDialogue").hide()})}},t}(),i={indexOf:function(o,t){var i,e=o.length;for(i=0;i<e;++i)if(o[i]===t)return i;return-1},randomSort:function(){return.5-Math.random()}},o.fn.puzzle=function(i){return this.each(function(){var e=o(this),n=o.fn.puzzle.lookup[e.data("puzzle")];n||(n=new t(e,i),o.fn.puzzle.lookup[++o.fn.puzzle.lookup.i]=n,e.data("puzzle",o.fn.puzzle.lookup.i)),"string"==typeof i&&n[i]()})},o.fn.puzzle.lookup={i:0},o.fn.puzzle.defaults={row:3,col:3,playtime:20}}(Zepto);
+(function($){
+
+    var Puzzle, privateMethod;
+
+    Puzzle = (function(){
+
+        function Puzzle(element, options){
+
+            var that = this;
+
+            that.el = $(element);
+
+            that.btn = $("#start");
+
+            this.progressBar = $("#progressBar");
+
+            this.remainTime = $("#remainTime");
+
+            that.options = $.extend({}, $.fn.puzzle.defaults, options);
+
+            that.init();
+
+        }
+
+        /* 交换数组下标 i 与 j 的值 */
+        Array.prototype.swap = function(i,j){
+            var tmp = this[i];
+            this[i] = this[j];
+            this[j] = tmp;
+            return this;
+        };
+
+        Array.prototype.indexOf = function(val){
+            var i,l=this.length;
+            for(i=0;i<l;++i) if(this[i] === val) return i;
+                return -1;
+        }
+
+        Puzzle.prototype = {
+            init : function(){
+
+                var that = this,
+                    side = that.el.width(),
+                    i,j,curIndex,pos;
+
+                that.offset = that.el.offset();
+
+                /* 图块边距 */
+                that.blockMargin = side*.01;
+
+                /* 图块宽高 */
+                that.blockWidth = (side-that.blockMargin*(that.options.col-1))/that.options.col;
+                that.blockHeight = (side-that.blockMargin*(that.options.row-1))/that.options.row;
+
+                that.pos = [];      //  图块坐标
+                that.order = [];    //  图块顺序
+                that.block = [];    //  图块
+
+                /* 图块总数 */
+                that.num = that.options.row * that.options.col;
+
+                /* 初始化图块信息 */
+                for(i=0;i<that.options.row;++i){
+                    for(j=0;j<that.options.col;++j){
+                        curIndex = i*that.options.col+j;
+
+                        that.pos[curIndex] = { 
+                            x : j*(that.blockWidth+that.blockMargin),
+                            y : i*(that.blockHeight+that.blockMargin)
+                        };
+
+                        that.block.push($("<div>"));
+                        that.block[curIndex].css({width: that.blockWidth, height: that.blockHeight, "background-size": side+"px,"+side+"px", "background-position-x": -that.pos[curIndex].x, "background-position-y": -that.pos[curIndex].y}).addClass("img-block");
+                        that.el.append(that.block[curIndex]);
+
+                        that.order[curIndex] = curIndex;
+
+                    }
+                }
+
+                /* 定位图块 */
+                that.locate();
+
+                this.playtime = 0;
+                that.refreshTime();
+
+                this.playing = false;
+
+                that.remainNum = $("#remainingNumber");
+
+                var phoD = $("#phoDialogue");
+
+                $("#pho-submit").on("click tap",function(){
+                    phoD.hide();
+                });
+
+                that.btn.on("click tap",function(){
+
+                    if(that.playing) return;
+
+                    var tmp = parseInt(that.remainNum.text());
+
+                    if(isNaN(tmp) || tmp <= 0) return;
+
+                    that.remainNum.text(tmp-1);
+
+                    that.start();
+                });
+
+            },
+            /* 窗体大小变化 */
+            resize : function(){
+                var that = this,
+                    side = that.el.width(),
+                    i,j,curIndex,pos;
+
+                that.offset = that.el.offset();
+
+                /* 图块边距 */
+                that.blockMargin = side*.01;
+
+                /* 图块宽高 */
+                that.blockWidth = (side-that.blockMargin*(that.options.col-1))/that.options.col;
+                that.blockHeight = (side-that.blockMargin*(that.options.row-1))/that.options.row;
+
+                that.pos = [];      //  图块坐标
+
+                /* 初始化图块信息 */
+                for(i=0;i<that.options.row;++i){
+                    for(j=0;j<that.options.col;++j){
+                        curIndex = i*that.options.col+j;
+
+                        that.pos[curIndex] = { 
+                            x : j*(that.blockWidth+that.blockMargin),
+                            y : i*(that.blockHeight+that.blockMargin)
+                        };
+
+                        that.block[curIndex].css({width: that.blockWidth, height: that.blockHeight, "background-size": side+"px,"+side+"px", "background-position-x": -that.pos[curIndex].x, "background-position-y": -that.pos[curIndex].y}).addClass("img-block");
+                        that.el.append(that.block[curIndex]);
+
+                    }
+                }
+
+                /* 定位图块 */
+                that.locate();
+
+            },
+            /* 根据 that.order 数组中的序列对各图块进行定位 */
+            locate : function(){
+
+                var that = this,
+                    i,j,curIndex;
+                for(i=0;i<that.options.row;++i) for(j=0;j<that.options.col;++j){
+                        curIndex = i*that.options.col+j;
+                        that.block[that.order[curIndex]].css({top: that.pos[curIndex].y, left: that.pos[curIndex].x});
+                }
+
+            },
+            /* 开始游戏 */
+            start : function(){
+
+                if(this.playing) return;
+
+                this.playing = true;
+
+                this.playtime = 0;
+
+                for(var i=0;i<this.num;++i){
+                    this.dragBlock(this.block[i]);
+                }
+
+                this.order.sort(privateMethod.randomSort);
+
+                this.locate();
+
+                this.play();
+
+            },
+            refreshTime : function(){
+
+                this.progressBar.css("width",(this.playtime/this.options.playtime)*100+"%");
+
+                this.remainTime.text((this.options.playtime-this.playtime).toFixed(2)+"秒");
+
+            },
+            play : function(){
+                var that = this;
+
+                if(that.playtime >= that.options.playtime){
+
+                    that.playtime = that.options.playtime;
+
+                    clearTimeout(that.timer);
+
+                    that.refreshTime();
+
+                    for(var i=0;i<that.num;++i){
+                        that.unDragBlock(that.block[i]);
+                    }
+
+                    setTimeout(function(){
+
+                        that.alertInfo("高手太多</br>继续加油!");
+
+                        that.playing = false;
+
+                    },500);
+
+                    return;
+                }
+
+                that.refreshTime();
+
+                that.playtime += .01;
+
+                that.timer = setTimeout(function(){
+
+                    that.play();
+
+                },10);
+
+            },
+            dragBlock : function(block){
+                var that = this,
+                    offset = block.offset();
+
+                block.on("touchstart",function(event){
+
+                    event.preventDefault();
+
+                    var touch = event.touches[0],
+                        disX = touch.pageX - block.offset().left,
+                        disY = touch.pageY - block.offset().top;
+                    block.css("z-index",2);
+
+                    block.on("touchmove",function(event){
+
+                        var touch = event.touches[0],
+                            l = touch.pageX-that.offset.left-disX,
+                            t = touch.pageY-that.offset.top-disY;
+
+                        block.css({top: t, left: l});
+
+                    });
+
+                    block.on("touchend",function(event){
+
+                        that.updateOrder(block.index());
+
+                        block.off("touchmove");
+                        block.off("touchend");
+
+                    });
+
+                });
+
+            },
+            unDragBlock : function(block){
+                block.off("touchstart");
+            },
+            updateOrder : function(index){
+                var that = this,
+                    ox = that.block[index].offset().left+that.blockWidth/2,
+                    oy = that.block[index].offset().top+that.blockHeight/2,
+                    ex,ey,i,
+                    to = -1;
+
+                for(i=0;i<that.num;++i){
+                    if(i === index) continue;
+                    ex = that.block[i].offset().left;
+                    ey = that.block[i].offset().top;
+                    if(ox>ex&&ox<ex+that.blockWidth&&oy>ey&&oy<ey+that.blockHeight){
+                        to = i;
+                        break;
+                    }
+                }
+                
+                if(to === -1){
+                    that.move(that.block[index],that.order.indexOf(index));
+                }
+                else {
+                    ox = that.order.indexOf(index);
+                    ex = that.order.indexOf(to);
+                    that.block[to].css("z-index",1);
+                    that.move(that.block[index],ex);
+                    that.move(that.block[to],ox);
+                    that.order.swap(ox,ex);
+
+                    that.block[index].css("z-index",0);
+                    that.block[to].css("z-index",0);
+
+                    if(that.isSuccess()){
+
+                        clearTimeout(that.timer);
+
+                        for(i=0;i<that.num;++i){
+                            that.unDragBlock(that.block[i]);
+                        }
+
+                        setTimeout(function(){
+
+                            that.playing = false;
+
+                            that.alertInfo("500M<br/>恭喜您中奖了!");
+
+                        },500);
+
+                    }
+                }
+            },
+            move : function(obj, index){
+                obj.css({top: this.pos[index].y, left: this.pos[index].x});
+            },
+            isSuccess : function(){
+                var i;
+                for(i=0;i<this.num;++i){
+                    if(this.order[i] !== i)
+                        return false;
+                }
+                return true;
+            },
+            alertInfo : function(info){
+                $("#rstDialogue").show();
+                $(".zp-flow").html(info);
+                var tmp = parseInt(this.remainNum.text());
+
+                if(isNaN(tmp) || tmp<=0){
+                    $("#share-btn").text("分享活动").off("click tap").on("click tap",function(){
+                        $(".share-guide").show();
+                        $(".guide-img").show();
+                    });
+                }
+                else{
+                    $("#share-btn").text("再来一次").off("click tap").on("click tap",function(){
+                        $("#rstDialogue").hide();
+                    });
+                }
+            }
+        };
+
+        return Puzzle;
+
+    })();
+
+    privateMethod = {
+        /* 在数组arr中查找第一个值为val的下标，未找到返回-1 */
+        indexOf : function(arr, val){
+            var l = arr.length,i;
+            for(i=0;i<l;++i) if(arr[i]===val) return i;
+            return -1;
+        },
+        /* 数组随机排序 */
+        randomSort : function(){
+            return 0.5 - Math.random();
+        }
+    };
+
+    $.fn.puzzle = function(options){
+
+        return this.each(function(){
+            var that = $(this),
+                instance = $.fn.puzzle.lookup[that.data("puzzle")];
+
+            if(!instance){
+
+                instance = new Puzzle(that, options);
+
+                $.fn.puzzle.lookup[++$.fn.puzzle.lookup.i] = instance;
+
+                that.data("puzzle", $.fn.puzzle.lookup.i)
+
+            }
+
+            if(typeof options === "string"){
+                instance[options]();
+            }
+
+        });
+    };
+
+    $.fn.puzzle.lookup = {
+        i : 0
+    };
+
+    $.fn.puzzle.defaults = {
+        row : 3,        // 行数
+        col : 3,        // 列数
+        playtime : 20   // 单轮拼图时间 单位 s
+    };
+})(Zepto);

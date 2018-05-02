@@ -1,1 +1,308 @@
-var DiffMatch=function(){function t(){this.text1="",this.text2="",this.dp=[],this.path=[]}var e=0,i=-1,h=1,s="↖︎",r="↑",n="←";return t.prototype.diff=function(t,e,i){var h=(new Date).getTime();i&&(t=t.split("\n"),e=e.split("\n"),t.forEach(function(e,i){t[i]=e+"\n"}),e.forEach(function(t,i){e[i]=t+"\n"}));var p=t.length,a=e.length;this.init(t,e);for(var f=1,o=0,u=1;u<=p;++u,o=f,f=Number(!f))for(var l=1;l<=a;++l)t[u-1]===e[l-1]?(this.dp[f][l]=this.dp[o][l-1]+1,this.path[u][l]=s):this.dp[o][l]>this.dp[f][l-1]?(this.dp[f][l]=this.dp[o][l],this.path[u][l]=r):(this.dp[f][l]=this.dp[f][l-1],this.path[u][l]=n);this.diffs=this.getDiffsFromPath();var g=(new Date).getTime();return this.timeConsumed=g-h,this.diffs},t.prototype.init=function(t,e){this.text1=t,this.text2=e;var i=t.length,h=e.length;this.dp=[];for(var s=0;s<2;++s){this.dp.push([]);for(var r=0;r<=h;++r)this.dp[s].push(0)}this.path=[];for(var s=0;s<=i;++s){this.path.push([]);for(var r=0;r<=h;++r)this.path[s].push(0)}},t.prototype.getLCS=function(){function t(p,a){0!==p&&0!==a&&(i[p][a]===s?(t(p-1,a-1),e+=h[p-1]):i[p][a]===r?t(p-1,a):i[p][a]===n&&t(p,a-1))}var e="",i=this.path,h=this.text1;return t(this.text1.length,this.text2.length),e},t.prototype.getDiffsFromPath=function(){function t(u,l){return 0===u||0===l?(0!==u&&("string"==typeof f?p.push([i,f.substring(0,u)]):p.push([i,f.splice(0,u).join("")])),void(0!==l&&("string"==typeof o?p.push([h,o.substring(0,l)]):p.push([h,o.splice(0,l).join("")])))):void(a[u][l]===s?(t(u-1,l-1),p.push([e,f[u-1]])):a[u][l]===r?(t(u-1,l),p.push([i,f[u-1]])):a[u][l]===n&&(t(u,l-1),p.push([h,o[l-1]])))}var p=[],a=this.path,f=this.text1,o=this.text2;return t(f.length,o.length),this.mergeDiffs(p)},t.prototype.mergeDiffs=function(t){if(!t||!t.length)return[];for(var e=[],i=t[0][0],h=t[0][1],s=1;s<t.length;++s){for(;s<t.length&&t[s][0]===i;)h+=t[s++][1];if(e.push([i,h]),h="",s>=t.length)break;i=t[s][0],h=t[s][1]}return h&&e.push([i,h]),e},t.prototype.prettyHtml=function(){for(var t=this.diffs,s=[],r=/&/g,n=/</g,p=/>/g,a=/\n/g,f=/ /g,o=/\t/g,u=0;u<t.length;u++){var l=t[u][0],g=t[u][1],c=g.replace(r,"&amp;").replace(n,"&lt;").replace(p,"&gt;").replace(a,"&para;<br>").replace(f,"&nbsp;").replace(o,"&nbsp;&nbsp;");switch(l){case h:s[u]='<ins style="background:#e6ffe6;">'+c+"</ins>";break;case i:s[u]='<del style="background:#ffe6e6;">'+c+"</del>";break;case e:s[u]="<span>"+c+"</span>"}}return s.join("")},t.prototype.pathHtml=function(t){function e(t,h){0!==t&&0!==h&&(a.push(t+"_"+h),i[t][h]===s?e(t-1,h-1):i[t][h]===r?e(t-1,h):i[t][h]===n&&e(t,h-1))}var i=this.path,h=this.text1.length,p=this.text2.length,a=[];if(t){var f=this.text1;e(this.text1.length,this.text2.length)}for(var f="<table><tr><td>&nbsp;</td>",o=0;o<p;++o)f+="<td>"+("\n"!==this.text2[o]?this.text2[o]:"\\n")+"</td>";f+="</tr>";for(var o=1;o<=h;++o){f+="<tr><td>"+("\n"!==this.text1[o-1]?this.text1[o-1]:"\\n")+"</td>";for(var u=1;u<=p;++u)f+="<td"+(t&&a.indexOf(o+"_"+u)!==-1?' style="color: red;"':"")+">"+i[o][u]+"</td>";f+="</tr>"}return f+="</table>"},t}();window.DiffMatch=DiffMatch;
+/**
+ * Diff Match —— Longest Common Subsequence
+ */
+var DiffMatch = (function(){
+
+  var DIFF_EQUAL = 0;
+  var DIFF_DELETE = -1;
+  var DIFF_INSERT = 1;
+
+  var DIFF_PATH_DIAGONA = '↖︎';
+  var DIFF_PATH_VERTICAL = '↑';
+  var DIFF_PATH_HORIZONTAL = '←';
+
+  function DiffMatch(){
+    this.text1 = '';
+    this.text2 = '';
+
+    this.dp = [];
+    this.path = [];
+  }
+
+  /**
+   * 找出两个文本的差异 以数组返回
+   * 返回数组结构： [[DIFF_type, string], ...]
+   * @param  {string}   text1  old string
+   * @param  {string}   text2  new string
+   * @return {array}    array of diffs
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.diff = function(text1, text2, line_based){
+    // 开始时间
+    var st = new Date().getTime();
+
+    if(line_based){
+      text1 = text1.split('\n');
+      text2 = text2.split('\n');
+
+      text1.forEach(function(text, index) {
+        text1[index] = text + '\n';
+      });
+
+      text2.forEach(function(text, index) {
+        text2[index] = text + '\n';
+      });
+    }
+
+    var len1 = text1.length;
+    var len2 = text2.length;
+
+    this.init(text1, text2);
+
+    // 空间优化
+    var k = 1;
+    var k_subtract_one = 0;
+
+    for(var i = 1; i <= len1; (++i, k_subtract_one = k, k = Number(!k))){
+      for(var j = 1; j <= len2; ++j){
+        if(text1[i - 1] === text2[j - 1]){
+          this.dp[k][j] = this.dp[k_subtract_one][j - 1] + 1;
+          this.path[i][j] = DIFF_PATH_DIAGONA;
+        } else if(this.dp[k_subtract_one][j] > this.dp[k][j - 1]){
+          this.dp[k][j] = this.dp[k_subtract_one][j];
+          this.path[i][j] = DIFF_PATH_VERTICAL;
+        } else {
+          this.dp[k][j] = this.dp[k][j - 1];
+          this.path[i][j] = DIFF_PATH_HORIZONTAL;
+        }
+      }
+    }
+
+    this.diffs = this.getDiffsFromPath();
+
+    var et = new Date().getTime();
+    this.timeConsumed = et - st;
+    return this.diffs;
+  };
+
+  /**
+   * 数据初始化
+   * @param  {string}   text1 old string
+   * @param  {string}   text2 new string
+   * @return {null}   null
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.init = function(text1, text2){
+    this.text1 = text1;
+    this.text2 = text2;
+
+    var len1 = text1.length;
+    var len2 = text2.length;
+
+    // 空间优化 2*len2
+    this.dp = [];
+    for(var i = 0; i < 2; ++i){
+      this.dp.push([]);
+      for(var j = 0; j <= len2; ++j){
+        this.dp[i].push(0);
+      }
+    }
+
+    this.path = [];
+    for(var i = 0; i <= len1; ++i){
+      this.path.push([]);
+      for(var j = 0; j <= len2; ++j){
+        this.path[i].push(0);
+      }
+    }
+  };
+
+  /**
+   * 从path中读出最长公共子序列
+   * @return {string}   Longest common Subsequence
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.getLCS = function(){
+    var lcs = '';
+    var path = this.path;
+    var text = this.text1;
+
+    function path_lcs(i, j){
+      if(i === 0 || j === 0){
+        return;
+      }
+      if(path[i][j] === DIFF_PATH_DIAGONA){
+        path_lcs(i - 1, j - 1);
+        lcs += text[i-1];
+      } else if(path[i][j] === DIFF_PATH_VERTICAL){
+        path_lcs(i - 1, j);
+      } else if(path[i][j] === DIFF_PATH_HORIZONTAL){
+        path_lcs(i, j - 1);
+      }
+    }
+
+    path_lcs(this.text1.length, this.text2.length);
+
+    return lcs;
+  };
+
+  /**
+   * 从path中获取diffs
+   * @return {array}   差异数组
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.getDiffsFromPath = function(){
+    var diffs = [];
+
+    var path = this.path;
+    var text1 = this.text1;
+    var text2 = this.text2;
+
+    function path_diffs(i, j){
+      if(i === 0 || j === 0){
+        if(i !== 0){
+          if(typeof text1 === 'string'){
+            diffs.push([DIFF_DELETE, text1.substring(0, i)]);
+          } else {
+            diffs.push([DIFF_DELETE, text1.splice(0, i).join('')]);
+          }
+        }
+        if(j !== 0){
+          if(typeof text2 === 'string'){
+            diffs.push([DIFF_INSERT, text2.substring(0, j)]);
+          } else {
+            diffs.push([DIFF_INSERT, text2.splice(0, j).join('')]);
+          }
+        }
+        return;
+      }
+      if(path[i][j] === DIFF_PATH_DIAGONA){
+        path_diffs(i - 1, j - 1);
+        diffs.push([DIFF_EQUAL, text1[i - 1]]);
+      } else if(path[i][j] === DIFF_PATH_VERTICAL){
+        path_diffs(i - 1, j);
+        diffs.push([DIFF_DELETE, text1[i - 1]]);
+      } else if(path[i][j] === DIFF_PATH_HORIZONTAL){
+        path_diffs(i, j - 1);
+        diffs.push([DIFF_INSERT, text2[j - 1]]);
+      }
+    }
+
+    path_diffs(text1.length, text2.length);
+
+    return this.mergeDiffs(diffs);
+  };
+
+  /**
+   * 合并diffs中的连续相同编辑
+   * @param  {array}   df 差异数组
+   * @return {array}      合并后的差异数组
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.mergeDiffs = function(df){
+    if(!df || !df.length){
+      return [];
+    }
+    var diffs = [];
+    var lst_op = df[0][0];
+    var lst_st = df[0][1];
+
+    for(var i = 1; i < df.length; ++i){
+      while(i < df.length && df[i][0] === lst_op){
+        lst_st += df[i++][1];
+      }
+      diffs.push([lst_op, lst_st]);
+      lst_st = '';
+      if(i >= df.length){
+        break;
+      }
+      lst_op = df[i][0];
+      lst_st = df[i][1];
+    }
+    if(lst_st){
+      diffs.push([lst_op, lst_st]);
+    }
+    return diffs;
+  };
+
+  /**
+   * 获取用以展示的差异html代码
+   * @return {string}   html代码
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.prettyHtml = function(){
+    var diffs = this.diffs;
+    var html = [];
+    var pattern_amp = /&/g;
+    var pattern_lt = /</g;
+    var pattern_gt = />/g;
+    var pattern_para = /\n/g;
+    var pattern_blank = / /g;
+    var pattern_tab = /\t/g;
+    for (var x = 0; x < diffs.length; x++) {
+      var op = diffs[x][0];    // Operation (insert, devare, equal)
+      var data = diffs[x][1];  // Text of change.
+      var text = data.replace(pattern_amp, '&amp;').replace(pattern_lt, '&lt;')
+            .replace(pattern_gt, '&gt;')
+            .replace(pattern_para, '&para;<br>')
+            .replace(pattern_blank, '&nbsp;')
+            .replace(pattern_tab, '&nbsp;&nbsp;');
+      switch (op) {
+        case DIFF_INSERT:
+          html[x] = '<ins style="background:#e6ffe6;">' + text + '</ins>';
+          break;
+        case DIFF_DELETE:
+          html[x] = '<del style="background:#ffe6e6;">' + text + '</del>';
+          break;
+        case DIFF_EQUAL:
+          html[x] = '<span>' + text + '</span>';
+          break;
+      }
+    }
+    return html.join('');
+  }
+
+  /**
+   * 查找路径图
+   * @param  {string}   text1 old string
+   * @param  {string}   text2 new string
+   * @return {string}   html code of path
+   * @author DHB(daihuibin@weidian.com)
+   */
+  DiffMatch.prototype.pathHtml = function(mark_path){
+    var path = this.path;
+    var len1 = this.text1.length;
+    var len2 = this.text2.length;
+
+    var paths = [];
+    if(mark_path){
+      var text = this.text1;
+
+      function path_lcs(i, j){
+        if(i === 0 || j === 0){
+          return;
+        }
+        paths.push(i + '_' + j);
+        if(path[i][j] === DIFF_PATH_DIAGONA){
+          path_lcs(i - 1, j - 1);
+        } else if(path[i][j] === DIFF_PATH_VERTICAL){
+          path_lcs(i - 1, j);
+        } else if(path[i][j] === DIFF_PATH_HORIZONTAL){
+          path_lcs(i, j - 1);
+        }
+      }
+      path_lcs(this.text1.length, this.text2.length);
+
+    }
+
+    var text = '<table><tr><td>&nbsp;</td>';
+    for(var i = 0; i < len2; ++i){
+      text += '<td>' + (this.text2[i] !== '\n' ? this.text2[i] : '\\n') + '</td>';
+    }
+    text += '</tr>';
+    for(var i = 1; i <= len1; ++i){
+      text += '<tr><td>' + (this.text1[i-1] !== '\n' ? this.text1[i-1] : '\\n') + '</td>';
+      for(var j = 1; j <= len2; ++j){
+        text += '<td' + (mark_path && paths.indexOf(i+'_'+j) !== -1 ? ' style="color: red;"' : '') + '>' + path[i][j] + '</td>';
+      }
+      text += '</tr>';
+    }
+    text += '</table>'
+    return text;
+  };
+
+  return DiffMatch;
+})();
+
+window.DiffMatch = DiffMatch;
+// module.exports = DiffMatch;

@@ -1,1 +1,146 @@
-$(document).ready(function(){function e(){f=!0,y.addClass("ball-hover"),v.addClass("barrel-ready"),v.css("transform","rotate("+c+"deg)")}function a(){s=1,l=1,y.removeClass("ball-hover"),v.removeClass("barrel-ready"),v.css("transform","rotate("+c+"deg)")}function t(){if(f){var e=$("<div></div>");e.addClass("ball ball-bullet ball-"+k[w]),e.css("top","100%"),e.css("left","50%"),e.css("margin-left",100*n-32),e.css("margin-top",-64-100*d),C.append(e);var a=32,t=o+(r-a)/i;t>772?(t=772,a=r-(t-o)*i):t<32&&(t=32,a=r-(t-o)*i),setTimeout(function(){e.css("top",a-32),e.css("left",t-32),e.css("margin",0)},30),setTimeout(function(){e.remove()},3e3),f=!1,y.removeClass("ball-"+k[w]),k[w]=M[Math.floor(Math.random()*p)],w=(w+1)%g,y.addClass("ball-"+k[w])}}var o=402,r=474,s=1,l=1,n=0,d=1,c=0,i=d/n,f=!1,m=!1,u=!1,b=!1,h=!1,y=$("#control-ball"),C=$("#control-panel"),v=$("#control-barrel"),M=["red","green","blue","purple","yellow","gray"],p=M.length,g=6,k=new Array(g+1),w=0;for(w=0;w<g;++w)k[w]=M[Math.floor(Math.random()*p)];w=g,y.addClass("ball-"+k[w]),$(document).bind("keydown",function(a){32==a.keyCode&&(b=!0,h=!1),65==a.keyCode&&(m=!0,u=!1),68==a.keyCode&&(u=!0,m=!1),b&&e()}),$(document).bind("keyup",function(e){32==e.keyCode&&(b=!1,h=!0),65==e.keyCode&&(m=!1),68==e.keyCode&&(u=!1),h&&(t(),a())}),setInterval(function(){m?(c-=5,c<=-90&&(c=-90),n=Math.sin(c*Math.PI/180),d=Math.sqrt(1-Math.pow(n,2)),i=d/n,v.css("transform","rotate("+c+"deg)")):u&&(c+=5,c>=90&&(c=90),n=Math.sin(c*Math.PI/180),d=Math.sqrt(1-Math.pow(n,2)),i=d/n,v.css("transform","rotate("+c+"deg)"))},100)});
+$(document).ready(function(){
+    var ox = 402;
+    var oy = 474;
+    var sx = 1;
+    var sy = 1;
+    var sin=0;
+    var cos=1;
+    var angle = 0;
+    var k=cos/sin;
+    var canShoot = false;
+    var leftDown = false;
+    var rightDown = false;
+    var blankDown = false;
+    var blankUp = false;
+    var controlBall = $("#control-ball");
+    var controlPanel = $("#control-panel");
+    var controlBarrel = $("#control-barrel");
+
+    var colorArr = ["red","green","blue","purple","yellow","gray"];
+    var colorNum = colorArr.length;
+
+    var nextSize = 6;
+    var nextArr = new Array(nextSize+1);
+
+    var cur=0;
+    for(cur=0;cur<nextSize;++cur){
+        nextArr[cur] = colorArr[Math.floor(Math.random()*colorNum)];
+    }
+
+    cur=nextSize;
+
+    controlBall.addClass("ball-"+nextArr[cur]);
+
+    $(document).bind("keydown",function(e){
+        //alert(e.keyCode);
+        if(e.keyCode == 32 ){
+            blankDown = true;
+            blankUp = false;
+        }
+
+        if(e.keyCode == 65 ){
+            leftDown = true;
+            rightDown = false;
+        }
+
+        if(e.keyCode == 68 ){
+            rightDown = true;
+            leftDown = false;
+        }
+
+        if(blankDown){
+            shootReady();
+        }
+    });
+
+    $(document).bind("keyup",function(e){
+
+        if(e.keyCode == 32 ){
+            blankDown = false;
+            blankUp = true;controlBarrel
+        }
+
+        if(e.keyCode == 65 ){
+            leftDown = false;
+        }
+
+        if(e.keyCode == 68 ){
+            rightDown = false;
+        }
+
+        if(blankUp){
+            shoot();
+            shootEnd();
+        }
+    });
+
+    setInterval(function(){
+
+        if(leftDown){
+            angle -= 5;
+            if(angle<=-90){ angle=-90;}
+            sin = Math.sin(angle*Math.PI/180);
+            cos = Math.sqrt(1-Math.pow(sin,2));
+            k = cos/sin;
+            controlBarrel.css("transform","rotate("+angle+"deg)");
+        }
+        else if(rightDown){
+            angle += 5;
+            if(angle>=90){ angle=90;}
+            sin = Math.sin(angle*Math.PI/180);
+            cos = Math.sqrt(1-Math.pow(sin,2));
+            k = cos/sin;
+            controlBarrel.css("transform","rotate("+angle+"deg)");
+        }
+
+    },100);
+
+    function shootReady(){
+        canShoot = true;
+        controlBall.addClass("ball-hover");
+        controlBarrel.addClass("barrel-ready");
+        controlBarrel.css("transform","rotate("+angle+"deg)");
+    }
+
+    function shootEnd(){
+        sx = 1;
+        sy = 1;
+        controlBall.removeClass("ball-hover");
+        controlBarrel.removeClass("barrel-ready");
+        controlBarrel.css("transform","rotate("+angle+"deg)");
+    }
+
+    function shoot(){
+        if(!canShoot) return ;
+        var bullet = $("<div></div>");
+        bullet.addClass("ball ball-bullet ball-"+nextArr[cur]);
+        bullet.css("top","100%");
+        bullet.css("left","50%");
+        bullet.css("margin-left",100*sin-32);
+        bullet.css("margin-top",-64-100*cos);
+        controlPanel.append(bullet);
+        var ty = 32;
+        var tx = ox+(oy-ty)/k;
+        if(tx>772){
+            tx = 772;
+            ty = oy-(tx-ox)*k;
+        }
+        else if(tx<32){
+            tx = 32;
+            ty = oy-(tx-ox)*k;
+        }
+        //bullet.css("margin-bottom",-ty);
+        setTimeout(function(){
+            bullet.css("top",ty-32);
+            bullet.css("left",tx-32);
+            bullet.css("margin",0);
+        },30);
+        setTimeout(function(){bullet.remove()},3000);
+        canShoot = false;
+        controlBall.removeClass("ball-"+nextArr[cur]);
+        nextArr[cur] = colorArr[Math.floor(Math.random()*colorNum)];
+        cur = (cur+1)%nextSize;
+        controlBall.addClass("ball-"+nextArr[cur]);
+    }
+
+});

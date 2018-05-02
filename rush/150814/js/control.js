@@ -1,1 +1,4 @@
-!function(n){}(jQuery);
+(function($){
+
+
+})(jQuery);

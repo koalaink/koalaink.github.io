@@ -1,1 +1,311 @@
-!function(t){var e=function(){var e=this;e.o={width:300,height:450,theme:"t1",date:new Date},e.ts={t1:["#e0e0e0","#46a0ff","#fc9a13","#fff","#666"],t2:["#adc3c0","#576069","#b9e3d9","#f3f4f6","#f74461"],t3:["#dbd0a7","#123555","#d1494e","#e1eed2","#e69b03"]},e.init=function(n,i){i&&t.extend(e.o,i),e.el=n,e.o.theme in e.ts?e.t=e.ts[e.o.theme]:e.t=e.ts.t1,e.o.height<43*e.o.width/30?e.w=30*e.o.height/43:e.w=e.o.width,e.h=43*e.w/30,e.r=e.w/2,e.c={f:{canvas:t("<canvas>")},p:{canvas:t("<canvas>")}};var a=e.c;return a.f.context=a.f.canvas[0].getContext("2d"),a.p.context=a.p.canvas[0].getContext("2d"),a.f.canvas.attr({width:e.w,height:e.w}),a.p.canvas.attr({width:e.w,height:e.h}),a.f.canvas.css("position","absolute"),a.p.canvas.css("position","absolute"),e.el.css({width:e.o.width,height:e.o.height}),e.el.append(a.f.canvas,a.p.canvas),e.d=i&&"date"in i&&(new Date).getTime()-i.date.getTime()||0,e.paintClock(),e.lt=new Date,e.start(),e},e.paintClock=function(){e.paintF(e.c.f.context),e.paintPs(e.c.p.context)},e.paintF=function(t){var n={context:t,type:"stroke",style:e.t[0],x:e.r,y:e.r,r:e.r-1,sAngle:0,eAngle:2*Math.PI,counterclockwise:!0};a(n),n.type="fill",n.style=e.t[3],a(n),n.r=.9*e.r,n.style=e.t[0],a(n),n.r=.5*e.r,n.style=e.t[3],a(n);for(var i={context:t,type:"stroke",style:e.t[1],points:[]},s=0,c=.99*e.r,r=.92*e.r,l=0;l<60;++l)i.points=[{x:e.r+c*Math.cos(s),y:e.r+c*Math.sin(s)},{x:e.r+r*Math.cos(s),y:e.r+r*Math.sin(s)}],o(i),s+=Math.PI/30;t.lineWidth=2,t.textBaseline="middle",t.textAlign="center",t.font=.15*e.r+"px Calibri",s=0,c=.99*e.r,r=.88*e.r;for(var l=0,h=3;l<12;++l,++h<13?0:h=1)i.style=e.t[1],i.points=[{x:e.r+c*Math.cos(s),y:e.r+c*Math.sin(s)},{x:e.r+r*Math.cos(s),y:e.r+r*Math.sin(s)}],o(i),i.style=e.t[3],i.points[0]=i.points[1],i.points[2]={x:e.r,y:e.r},o(i),t.fillStyle=e.t[1],t.fillText(h,e.r+.81*e.r*Math.cos(s),e.r+.81*e.r*Math.sin(s)),s+=Math.PI/6;n.r=.2*e.r,n.style=e.t[1],a(n),n.r=.04*e.r,n.style=e.t[4],a(n)},e.hc=.55,e.mc=.7,e.sc=.85,e.paintPs=function(t){t.clearRect(0,0,e.o.width,e.o.height);var o=new Date;o.setTime(o.getTime()-e.d);var s=o.getHours(),c=o.getMinutes(),r=o.getSeconds(),l=r*Math.PI/30,h=c+r/60,x=h*Math.PI/30,f=s%12+h/60,y=f*Math.PI/6;t.textBaseline="middle",t.textAlign="center",t.font=.1*e.r+"px YaHei",t.fillStyle=e.t[2],t.fillText(s>=12?"PM":"AM",1.35*e.r,e.r),i(t,l,e.sc),i(t,x,e.mc),i(t,y,e.hc);var p={context:t,type:"fill",style:e.t[4],x:e.r,y:e.r,r:.02*e.r,sAngle:0,eAngle:2*Math.PI,counterclockwise:!0};a(p),e.iw=e.w/3,t.font=.4*e.iw+"px YaHei",t.fillStyle="#000",t.lineWidth=.13*e.iw;var g=1.1*e.w+.5*e.iw,w=.5*e.iw;p.y=g,p.r=.3*e.iw,p.type="stroke",p.eAngle=-.5*Math.PI,t.fillText(n(s),w,g),p.x=w,p.style=e.t[2],p.sAngle=y-.5*Math.PI,a(p),w+=e.iw,t.fillText(n(c),w,g),p.x=w,p.style=e.t[1],p.sAngle=x-.5*Math.PI,a(p),w+=e.iw,t.fillText(n(r),w,g),p.x=w,p.style=e.t[0],p.sAngle=l-.5*Math.PI,a(p)},e.start=function(){e.d+=(new Date).getTime()-e.lt.getTime(),e.paintPs(e.c.p.context),e.tm=setInterval(function(){e.paintPs(e.c.p.context)},1e3)},e.pause=function(){e.lt=new Date,e.tm=clearInterval(e.tm)},e.setTime=function(t){e.d=(new Date).getTime()-t.getTime()};var n=function(t){return t<10?"0"+t:t},i=function(t,n,i){var a={context:t,type:"fill",style:e.t[2],points:[{x:e.r*(1+i*Math.sin(n)),y:e.r*(1-i*Math.cos(n))},{x:e.r*(1+.02*Math.cos(n)),y:e.r*(1+.02*Math.sin(n))},{x:e.r*(1-.15*i*Math.sin(n)),y:e.r*(1+.15*i*Math.cos(n))},{x:e.r*(1-.02*Math.cos(n)),y:e.r*(1-.02*Math.sin(n))}]};o(a)},a=function(t){t.context.beginPath(),t.context.arc(t.x,t.y,t.r,t.sAngle,t.eAngle,t.counterclockwise),"stroke"===t.type?(t.context.strokeStyle=t.style,t.context.stroke()):(t.context.fillStyle=t.style,t.context.fill()),t.context.closePath()},o=function(t){var e=t.points.length;if(!(e<2)){t.context.beginPath(),t.context.moveTo(t.points[0].x,t.points[0].y);for(var n=1;n<e;++n)t.context.lineTo(t.points[n].x,t.points[n].y);"stroke"===t.type?(t.context.strokeStyle=t.style,t.context.stroke()):(t.context.lineTo(t.points[0].x,t.points[0].y),t.context.fillStyle=t.style,t.context.fill()),t.context.closePath()}}};t.fn.clock=function(n){var i=this.length;return this.each(function(a){var o=t(this),s="clock"+(i>1?"-"+ ++a:""),c=(new e).init(o,n);o.data(s,c).data("key",s)})}}(jQuery);
+(function($){
+    var Clock = function(){
+        var _ = this;
+
+        _.o = {
+            width: 300,
+            height: 450,
+            theme: 't1',
+            date: new Date
+        };
+
+        _.ts = {
+            't1': ['#e0e0e0', '#46a0ff', '#fc9a13', '#fff', '#666'],
+            't2': ['#adc3c0', '#576069', '#b9e3d9', '#f3f4f6', '#f74461'],
+            't3': ['#dbd0a7','#123555','#d1494e','#e1eed2','#e69b03']
+        };
+
+        _.init = function(el, o){
+
+            o && $.extend(_.o,o);
+
+            _.el = el;
+
+            (_.o.theme in _.ts)?_.t = _.ts[_.o.theme]: _.t = _.ts['t1'];
+
+            _.o.height< _.o.width*43/30?_.w=_.o.height*30/43:_.w=_.o.width;
+            _.h = _.w*43/30;
+
+            _.r = _.w/2;
+
+            _.c = {
+                f: {
+                    canvas: $('<canvas>')
+                },
+                p: {
+                    canvas: $('<canvas>')
+                }
+            };
+            var x = _.c;
+            x.f.context = x.f.canvas[0].getContext('2d');
+            x.p.context = x.p.canvas[0].getContext('2d');
+            x.f.canvas.attr({"width": _.w,"height": _.w});
+            x.p.canvas.attr({"width": _.w,"height": _.h});
+            x.f.canvas.css("position","absolute");
+            x.p.canvas.css("position","absolute");
+            _.el.css({"width": _.o.width,"height": _.o.height});
+            _.el.append(x.f.canvas,x.p.canvas);
+
+            _.d = o && 'date' in o && (new Date()).getTime()-o.date.getTime() || 0;
+
+            _.paintClock();
+
+            _.lt = new Date();
+            _.start();
+
+            return _;
+        };
+
+        _.paintClock = function(){
+            _.paintF(_.c.f.context);
+            _.paintPs(_.c.p.context);
+        };
+
+        // paint clock face
+        _.paintF = function(context){
+            var oa = {
+                context: context,
+                type: 'stroke',
+                style: _.t[0],
+                x: _.r,
+                y: _.r,
+                r: _.r-1,
+                sAngle: 0,
+                eAngle: Math.PI*2,
+                counterclockwise: true
+            };
+
+            paintArc(oa);
+
+            oa.type = 'fill';
+            oa.style = _.t[3];
+            paintArc(oa);
+
+            oa.r = .9*_.r;
+            oa.style = _.t[0];
+            paintArc(oa);
+
+            oa.r = .5*_.r;
+            oa.style = _.t[3];
+            paintArc(oa);
+
+            var ol = {
+                context: context,
+                type: 'stroke',
+                style: _.t[1],
+                points: []
+            };
+
+            var angle = 0,tr = .99* _.r, er = .92* _.r;
+            for(var i=0;i<60;++i){
+                ol.points = [{
+                    x: _.r+tr*Math.cos(angle),
+                    y: _.r+tr*Math.sin(angle)
+                },{
+                    x: _.r+er*Math.cos(angle),
+                    y: _.r+er*Math.sin(angle)
+                }];
+                paintLine(ol);
+                angle += Math.PI/30;
+            }
+
+            context.lineWidth = 2;
+            context.textBaseline = 'middle';
+            context.textAlign = 'center';
+            context.font = .15*_.r+"px Calibri";
+            angle = 0,tr = .99* _.r, er = .88* _.r;
+            for(var i= 0,num=3;i<12;++i,++num<13?0:num=1){
+                ol.style = _.t[1];
+                ol.points = [{
+                    x: _.r+tr*Math.cos(angle),
+                    y: _.r+tr*Math.sin(angle)
+                },{
+                    x: _.r+er*Math.cos(angle),
+                    y: _.r+er*Math.sin(angle)
+                }];
+                paintLine(ol);
+
+                ol.style = _.t[3];
+                ol.points[0] = ol.points[1];
+                ol.points[2] = {x: _.r,y: _.r};
+                paintLine(ol);
+
+                context.fillStyle = _.t[1];
+                context.fillText(num,_.r+.81*_.r*Math.cos(angle),_.r+.81*_.r*Math.sin(angle));
+                angle += Math.PI/6;
+            }
+
+            oa.r = .2*_.r;
+            oa.style = _.t[1];
+            paintArc(oa);
+
+            oa.r = .04*_.r;
+            oa.style = _.t[4];
+            paintArc(oa);
+        };
+
+        _.hc = .55;
+        _.mc = .70;
+        _.sc = .85;
+
+        // paint clock pointers and date info
+        _.paintPs = function(context){
+            context.clearRect(0,0,_.o.width,_.o.height);
+
+            var curT = new Date();
+            curT.setTime(curT.getTime()-_.d);
+            var h = curT.getHours(),
+                m = curT.getMinutes(),
+                s = curT.getSeconds(),sa = s*Math.PI/30,
+                ms = m + s/60,ma = ms*Math.PI/30,
+                hs = h%12 + ms/60,ha = hs*Math.PI/6;
+
+            context.textBaseline = 'middle';
+            context.textAlign = 'center';
+            context.font = .1*_.r+"px YaHei";
+            context.fillStyle = _.t[2];
+            context.fillText(h>=12?'PM':'AM',1.35*_.r,_.r);
+
+            paintP(context,sa,_.sc);
+            paintP(context,ma,_.mc);
+            paintP(context,ha,_.hc);
+
+            var oa = {
+                context: context,
+                type: 'fill',
+                style: _.t[4],
+                x: _.r,
+                y: _.r,
+                r: .02*_.r,
+                sAngle: 0,
+                eAngle: Math.PI*2,
+                counterclockwise: true
+            };
+            paintArc(oa);
+
+            _.iw = _.w/3;
+
+            context.font = .4*_.iw+"px YaHei";
+            context.fillStyle = '#000';
+            context.lineWidth = .13*_.iw;
+
+            var ty = 1.1*_.w+.5*_.iw,
+                tx = .5*_.iw;
+
+            oa.y = ty;
+            oa.r = .3*_.iw;
+            oa.type = 'stroke';
+            oa.eAngle = -.5*Math.PI;
+
+            context.fillText(db(h),tx,ty);
+            oa.x = tx;
+            oa.style = _.t[2];
+            oa.sAngle = ha-.5*Math.PI;
+            paintArc(oa);
+
+            tx += _.iw;
+            context.fillText(db(m),tx,ty);
+            oa.x = tx;
+            oa.style = _.t[1];
+            oa.sAngle = ma-.5*Math.PI;
+            paintArc(oa);
+
+            tx += _.iw;
+            context.fillText(db(s),tx,ty);
+            oa.x = tx;
+            oa.style = _.t[0];
+            oa.sAngle = sa-.5*Math.PI;
+            paintArc(oa);
+        };
+
+        _.start = function(){
+            _.d += (new Date()).getTime()-_.lt.getTime();
+            _.paintPs(_.c.p.context);
+            _.tm = setInterval(function(){
+                _.paintPs(_.c.p.context);
+            },1000);
+        };
+
+        _.pause = function(){
+            _.lt = new Date();
+            _.tm = clearInterval(_.tm);
+        };
+
+        _.setTime = function(date){
+            _.d = (new Date()).getTime()- date.getTime();
+        };
+
+        var db = function(x){
+            return x<10?"0"+x:x;
+        };
+
+        var paintP = function(context,angle,c){
+            var o = {
+                context: context,
+                type: 'fill',
+                style: _.t[2],
+                points: [{
+                    x: _.r*(1+c*Math.sin(angle)),
+                    y: _.r*(1-c*Math.cos(angle))
+                },{
+                    x: _.r*(1+.02*Math.cos(angle)),
+                    y: _.r*(1+.02*Math.sin(angle))
+                },{
+                    x: _.r*(1-.15*c*Math.sin(angle)),
+                    y: _.r*(1+.15*c*Math.cos(angle))
+                },{
+                    x: _.r*(1-.02*Math.cos(angle)),
+                    y: _.r*(1-.02*Math.sin(angle))
+                }]
+            };
+
+            paintLine(o);
+        };
+
+        var paintArc = function(o){
+            o.context.beginPath();
+            o.context.arc(o.x, o.y, o.r, o.sAngle, o.eAngle, o.counterclockwise);
+            if(o.type==='stroke'){
+                o.context.strokeStyle = o.style;
+                o.context.stroke();
+            }
+            else{
+                o.context.fillStyle = o.style;
+                o.context.fill();
+            }
+            o.context.closePath();
+        };
+
+        var paintLine = function(o){
+            var len = o.points.length;
+            if(len<2) return ;
+            o.context.beginPath();
+            o.context.moveTo(o.points[0].x, o.points[0].y);
+            for(var i=1;i<len;++i){
+                o.context.lineTo(o.points[i].x, o.points[i].y);
+            }
+            if(o.type==='stroke'){
+                o.context.strokeStyle = o.style;
+                o.context.stroke();
+            }
+            else{
+                o.context.lineTo(o.points[0].x, o.points[0].y);
+                o.context.fillStyle = o.style;
+                o.context.fill();
+            }
+            o.context.closePath();
+        }
+    };
+
+    $.fn.clock = function(o){
+        var len = this.length;
+
+        return this.each(function(index){
+            var _ = $(this),
+                key = 'clock'+(len>1?'-'+ ++index:''),
+                instance = (new Clock().init(_,o));
+            _.data(key,instance).data('key',key);
+        });
+    };
+
+})(jQuery);
