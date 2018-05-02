@@ -1,0 +1,402 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>侧边栏插件</title><link rel="stylesheet" href="css/layout.css"><link rel="stylesheet" href="css/menu.css"><link rel="stylesheet" href="css/prettify.css"><style type="text/css">code{padding:0 4px;color:#d14;background-color:#f7f7f9;border:1px solid #e1e1e8}</style></head><body><div class="wrapper"><div class="header"></div><div class="container clear"><div class="pull-left sidebar" id="menu"></div><div class="pull-left content"><h2 class="content-title">代码展示：</h2><h3>HTML 代码:</h3><div class="show-code"><pre class="prettyprint linenums">
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;侧边栏插件&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/layout.css"/&gt;
+    &lt;link rel="stylesheet" href="css/menu.css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="wrapper"&gt;
+    &lt;div class="header"&gt;&lt;/div&gt;
+    &lt;div class="container clear"&gt;
+        &lt;div class="pull-left sidebar" id="menu"&gt;
+            &lt;!-- 此处生成侧边栏代码 --&gt;
+        &lt;/div&gt;
+        &lt;div class="pull-left content"&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="footer"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;script type="text/javascript" src="src/jquery-2.1.4.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="src/menu.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+
+    /* 设置目录层级 */
+    var items = [
+        {
+            // 配置目录项
+
+            title : "一级目录 一",       // 配置 标题
+            // cls : "cls",              // 配置 css class / 多个用空格隔开
+            // id : "id",                // 配置 id
+            // href : "url",             // 配置 a标签href
+            /* 配置子目录 */
+            subItems : [
+                {
+                    title : "二级目录 一",
+                    subItems : [
+                        {
+                            title : "三级目录 一",
+                            subItems : [
+                                {
+                                    title : "四级目录 一",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 二",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        },{
+                                            title : "五级目录 四"
+                                        },{
+                                            title : "五级目录 五"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 二",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 三",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        }
+                    ]
+                },{
+                    title : "二级目录 二",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                },{
+                    title : "二级目录 三",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title : "一级目录 二",
+            subItems : [
+                {
+                    title : "二级目录 一",
+                    subItems : [
+                        {
+                            title : "三级目录 一",
+                            subItems : [
+                                {
+                                    title : "四级目录 一",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 二",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        },{
+                                            title : "五级目录 四"
+                                        },{
+                                            title : "五级目录 五"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 二",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 三",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        }
+                    ]
+                },{
+                    title : "二级目录 二",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                },{
+                    title : "二级目录 三",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                }
+            ]
+        } ,
+        {
+            title : "一级目录 三",
+            subItems : [
+                {
+                    title : "二级目录 一",
+                    subItems : [
+                        {
+                            title : "三级目录 一",
+                            subItems : [
+                                {
+                                    title : "四级目录 一",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 二",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        },{
+                                            title : "五级目录 四"
+                                        },{
+                                            title : "五级目录 五"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 二",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 三",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        }
+                    ]
+                },{
+                    title : "二级目录 二",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                },{
+                    title : "二级目录 三",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                }
+            ]
+        } ,
+        {
+            title : "一级目录 四",
+            subItems : [
+                {
+                    title : "二级目录 一",
+                    subItems : [
+                        {
+                            title : "三级目录 一",
+                            subItems : [
+                                {
+                                    title : "四级目录 一",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 二",
+                                    subItems : [
+                                        {
+                                            title : "五级目录 一"
+                                        },{
+                                            title : "五级目录 二"
+                                        },{
+                                            title : "五级目录 三"
+                                        },{
+                                            title : "五级目录 四"
+                                        },{
+                                            title : "五级目录 五"
+                                        }
+                                    ]
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 二",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        },{
+                            title : "三级目录 三",
+                            subItems : [
+                                {
+                                    title : "四级目录 一"
+                                },{
+                                    title : "四级目录 二"
+                                },{
+                                    title : "四级目录 三"
+                                }
+                            ]
+                        }
+                    ]
+                },{
+                    title : "二级目录 二",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                },{
+                    title : "二级目录 三",
+                    subItems : [
+                        {
+                            title : "三级目录 一"
+                        },{
+                            title : "三级目录 二"
+                        },{
+                            title : "三级目录 三"
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    /*  */
+    $("#menu").menu({
+        width : 280,            // menu宽度
+        title : "目录标题",     // menu标题
+        items : items,          // menu内容结构
+        fixed : true,           // 是否滚动固定
+        offset : ".container"   // 滚动范围 若fixed: false 则无需此项
+    });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre></div></div></div><div class="footer"></div></div><script type="text/javascript" src="src/jquery-2.1.4.min.js"></script><script type="text/javascript" src="src/menu.js"></script><script type="text/javascript" src="src/prettify.js"></script><script type="text/javascript">$(function(){prettyPrint()})</script><script type="text/javascript">var items=[{title:"一级目录 一",subItems:[{title:"二级目录 一",subItems:[{title:"三级目录 一",subItems:[{title:"四级目录 一",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"}]},{title:"四级目录 二",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"},{title:"五级目录 四"},{title:"五级目录 五"}]},{title:"四级目录 三"}]},{title:"三级目录 二",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]},{title:"三级目录 三",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]}]},{title:"二级目录 二",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]},{title:"二级目录 三",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]}]},{title:"一级目录 二",subItems:[{title:"二级目录 一",subItems:[{title:"三级目录 一",subItems:[{title:"四级目录 一",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"}]},{title:"四级目录 二",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"},{title:"五级目录 四"},{title:"五级目录 五"}]},{title:"四级目录 三"}]},{title:"三级目录 二",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]},{title:"三级目录 三",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]}]},{title:"二级目录 二",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]},{title:"二级目录 三",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]}]},{title:"一级目录 三",subItems:[{title:"二级目录 一",subItems:[{title:"三级目录 一",subItems:[{title:"四级目录 一",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"}]},{title:"四级目录 二",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"},{title:"五级目录 四"},{title:"五级目录 五"}]},{title:"四级目录 三"}]},{title:"三级目录 二",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]},{title:"三级目录 三",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]}]},{title:"二级目录 二",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]},{title:"二级目录 三",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]}]},{title:"一级目录 四",subItems:[{title:"二级目录 一",subItems:[{title:"三级目录 一",subItems:[{title:"四级目录 一",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"}]},{title:"四级目录 二",subItems:[{title:"五级目录 一"},{title:"五级目录 二"},{title:"五级目录 三"},{title:"五级目录 四"},{title:"五级目录 五"}]},{title:"四级目录 三"}]},{title:"三级目录 二",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]},{title:"三级目录 三",subItems:[{title:"四级目录 一"},{title:"四级目录 二"},{title:"四级目录 三"}]}]},{title:"二级目录 二",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]},{title:"二级目录 三",subItems:[{title:"三级目录 一"},{title:"三级目录 二"},{title:"三级目录 三"}]}]}];$("#menu").menu({width:280,title:"目录标题",items:items,fixed:!0,offset:".container"})</script></body></html>
