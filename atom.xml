@@ -67,7 +67,7 @@
     <link href="http://koala.ink/posts/21429e35/"/>
     <id>http://koala.ink/posts/21429e35/</id>
     <published>2017-07-04T14:32:17.000Z</published>
-    <updated>2018-05-02T11:21:08.101Z</updated>
+    <updated>2018-05-02T11:21:08.102Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>换用JavaScript刷题，有种不一样的感觉。  </p>
@@ -159,7 +159,7 @@
     <link href="http://koala.ink/posts/86543bce/"/>
     <id>http://koala.ink/posts/86543bce/</id>
     <published>2017-06-02T12:42:33.000Z</published>
-    <updated>2018-05-02T11:21:08.100Z</updated>
+    <updated>2018-05-02T11:21:08.101Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>换用JavaScript刷题，有种不一样的感觉。  </p>
@@ -291,7 +291,7 @@
     <link href="http://koala.ink/posts/5ee0994f/"/>
     <id>http://koala.ink/posts/5ee0994f/</id>
     <published>2017-05-17T13:32:12.000Z</published>
-    <updated>2018-05-02T11:21:08.088Z</updated>
+    <updated>2018-05-21T09:36:35.532Z</updated>
     
     <content type="html"><![CDATA[<h2 id="检出项目"><a href="#检出项目" class="headerlink" title="检出项目"></a>检出项目</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git <span class="built_in">clone</span> [url]</div><div class="line">git <span class="built_in">clone</span> [url] dirname <span class="comment"># 检出代码到指定目录</span></div><div class="line">git <span class="built_in">clone</span> [url] -b branch_name <span class="comment"># 检出指定分支代码</span></div><div class="line"></div><div class="line">git submodule init <span class="comment"># 初始化submodule</span></div><div class="line">git submodule update <span class="comment"># 更新检出submodule</span></div><div class="line">git submodule update --init --recursive <span class="comment"># 初始化检出所有submodule</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -305,6 +305,7 @@
 <h3 id="更改项目git地址"><a href="#更改项目git地址" class="headerlink" title="更改项目git地址"></a>更改项目git地址</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git remote rm origin <span class="comment">#删除旧的git地址</span></div><div class="line">git remote add origin [url] <span class="comment">#添加新的git地址</span></div></pre></td></tr></table></figure>
 <h3 id="查看文件变更记录"><a href="#查看文件变更记录" class="headerlink" title="查看文件变更记录"></a>查看文件变更记录</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git <span class="built_in">log</span> -p file_name</div></pre></td></tr></table></figure>
 <h3 id="更新远程分支列表信息"><a href="#更新远程分支列表信息" class="headerlink" title="更新远程分支列表信息"></a>更新远程分支列表信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git remote update origin --prune</div></pre></td></tr></table></figure>
+<h3 id="忽略文件权限变动"><a href="#忽略文件权限变动" class="headerlink" title="忽略文件权限变动"></a>忽略文件权限变动</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git config core.filemode <span class="literal">false</span></div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
@@ -325,7 +326,7 @@
     <link href="http://koala.ink/posts/d124c7d1/"/>
     <id>http://koala.ink/posts/d124c7d1/</id>
     <published>2017-03-22T02:46:43.000Z</published>
-    <updated>2018-05-02T11:21:08.087Z</updated>
+    <updated>2018-05-02T11:21:08.088Z</updated>
     
     <content type="html"><![CDATA[<h2 id="应用背景"><a href="#应用背景" class="headerlink" title="应用背景"></a>应用背景</h2><p>应BI要求，对于推荐商品的上报，需要做停留曝光，也就是当推荐商品出现在视窗中时，才可以进行数据上报，即与图片懒加载的加载时机相同。<br>此插件可适用于：停留曝光、图片懒加载、翻页加载等。</p>
 <h2 id="实现要点"><a href="#实现要点" class="headerlink" title="实现要点"></a>实现要点</h2><p>停留曝光的实现关键点在于，如何判断商品出现在视窗中。我们可以通过判断滚动速度，来判断页面是否停留（当用户以很慢的速度滚动浏览页面时，也应该算曝光；但是如果是快速滑过，则不算曝光）。</p>
@@ -428,7 +429,7 @@
     <link href="http://koala.ink/posts/319f3962/"/>
     <id>http://koala.ink/posts/319f3962/</id>
     <published>2016-10-20T10:46:18.000Z</published>
-    <updated>2018-05-02T11:21:08.074Z</updated>
+    <updated>2018-05-02T11:21:08.075Z</updated>
     
     <content type="html"><![CDATA[<!-- ¥49.00 -->你不知道的JavaScript（上卷）<br><br><!-- ¥79.00 -->你不知道的JavaScript(中卷)<br><br><!-- ¥139.00 -->O’Reilly精品图书系列:JavaScript权威指南(第6版)<br><br><!-- ¥35.00 -->计算机科学丛书：设计模式 可复用面向对象软件的基础<br><br><a id="more"></a>
 <!-- ¥69.00 -->ES6 标准入门（第2版）<br><br><!-- ¥49.00 -->JavaScript语言精粹（修订版）<br><br><!-- ¥39.00 -->编程珠玑（第2版·修订版）<br><br><!-- ¥35.00 -->编程珠玑（续）（修订版）<br><br><!-- ¥128.00 -->算法导论（原书第3版）<br><br><!-- ¥59.00 -->点石成金：访客至上的Web和移动可用性设计秘笈(第3版)<br><br><!-- ¥86.80 -->Node.js硬实战：115个核心技巧<br><br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">!(<span class="regexp">/^,?$|^(,,+?)\1+$/</span>.test(<span class="built_in">Array</span>(++x)))</div></pre></td></tr></table></figure>
@@ -454,7 +455,7 @@
     <link href="http://koala.ink/posts/86be452a/"/>
     <id>http://koala.ink/posts/86be452a/</id>
     <published>2016-09-29T14:33:29.000Z</published>
-    <updated>2018-05-02T11:21:08.085Z</updated>
+    <updated>2018-05-02T11:21:08.086Z</updated>
     
     <content type="html"><![CDATA[<h2 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h2><ul>
 <li><a href="/rush/css3_transition_animation/demo/3dtransforms/index.html">3D transforms</a>  </li>
@@ -599,7 +600,7 @@
     <link href="http://koala.ink/posts/a254636/"/>
     <id>http://koala.ink/posts/a254636/</id>
     <published>2016-09-27T06:47:03.000Z</published>
-    <updated>2018-05-02T11:21:08.093Z</updated>
+    <updated>2018-05-02T11:21:08.094Z</updated>
     
     <content type="html"><![CDATA[<h2 id="什么是-Hexo"><a href="#什么是-Hexo" class="headerlink" title="什么是 Hexo?"></a>什么是 Hexo?</h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。  </p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装 Hexo 只需几分钟时间，若在安装过程中遇到问题或无法找到解决方式，可提交问题至 <a href="https://github.com/hexojs/hexo/issues">HEXO GitHub issues</a>。  </p>
@@ -888,7 +889,7 @@
     <link href="http://koala.ink/posts/35e389c8/"/>
     <id>http://koala.ink/posts/35e389c8/</id>
     <published>2015-11-09T09:54:58.000Z</published>
-    <updated>2018-05-02T11:21:08.102Z</updated>
+    <updated>2018-05-02T11:21:08.103Z</updated>
     
     <content type="html"><![CDATA[<p>原文：<a href="http://www.cnblogs.com/PeunZhang/p/3407453.html">http://www.cnblogs.com/PeunZhang/p/3407453.html</a>  </p>
 <hr>
@@ -1175,7 +1176,7 @@
     <link href="http://koala.ink/posts/dcb5ea88/"/>
     <id>http://koala.ink/posts/dcb5ea88/</id>
     <published>2015-11-09T06:56:47.000Z</published>
-    <updated>2018-05-02T11:21:08.095Z</updated>
+    <updated>2018-05-02T11:21:08.096Z</updated>
     
     <content type="html"><![CDATA[<p>译文链接：<a href="http://blog.gejiawen.com/2015/09/22/45-useful-javascript-tips-tricks-and-best-practices/?utm_source=tuicool&amp;utm_medium=referral">Javascript实用黑科技45条</a></p>
 <p>本文是一篇翻译文章。原文： <a href="http://modernweb.com/2013/12/23/45-useful-javascript-tips-tricks-and-best-practices/">45 Useful JavaScript Tips, Tricks and Best Practices</a>  </p>
@@ -1397,7 +1398,7 @@
     <link href="http://koala.ink/posts/13fd831e/"/>
     <id>http://koala.ink/posts/13fd831e/</id>
     <published>2015-11-02T16:02:08.000Z</published>
-    <updated>2018-05-02T11:21:08.086Z</updated>
+    <updated>2018-05-02T11:21:08.087Z</updated>
     
     <content type="html"><![CDATA[<p>在页面布局中，使用浮动(float )往往是不可避免的，尽管使用浮动后总可能会带来一系列的问题（如常见的“<strong>高度坍塌</strong>”），但是通过浮动能够方便我们的布局，因此，设置了浮动，我们总需要并也有必要去清除浮动。清除浮动的形式有很多种，但是总的概括起来就是两种类别：  </p>
 <ol>
@@ -1681,7 +1682,7 @@
     <link href="http://koala.ink/posts/eaf8d27b/"/>
     <id>http://koala.ink/posts/eaf8d27b/</id>
     <published>2015-09-18T10:02:05.000Z</published>
-    <updated>2018-05-02T11:21:08.091Z</updated>
+    <updated>2018-05-02T11:21:08.092Z</updated>
     
     <content type="html"><![CDATA[<p>使用H5 的canvas 绘制的一个转盘  </p>
 <p>能够配置转盘的格数，每格的图片以及文本内容  </p>
@@ -1804,7 +1805,7 @@
     <link href="http://koala.ink/posts/d66acd02/"/>
     <id>http://koala.ink/posts/d66acd02/</id>
     <published>2015-08-14T09:16:25.000Z</published>
-    <updated>2018-05-02T11:21:08.084Z</updated>
+    <updated>2018-05-02T11:21:08.085Z</updated>
     
     <content type="html"><![CDATA[<p>CSS3 实现的小球效果  </p>
 <p>简单的进行边缘碰撞检测，小球碰撞边框后消失（从DOM 中remove ）。  </p>
@@ -1995,7 +1996,7 @@
     <link href="http://koala.ink/posts/2e5e2b/"/>
     <id>http://koala.ink/posts/2e5e2b/</id>
     <published>2013-11-22T14:45:11.000Z</published>
-    <updated>2018-05-02T11:21:08.078Z</updated>
+    <updated>2018-05-02T11:21:08.079Z</updated>
     
     <content type="html"><![CDATA[<p>题目链接：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1715">HDU 1715 大菲波数 大数</a>  </p>
 <p>第一题手敲大数，自己的写法，应该很不规范  </p>
@@ -2234,7 +2235,7 @@
     <link href="http://koala.ink/posts/ae7cce99/"/>
     <id>http://koala.ink/posts/ae7cce99/</id>
     <published>2013-11-12T04:31:12.000Z</published>
-    <updated>2018-05-02T11:21:08.092Z</updated>
+    <updated>2018-05-02T11:21:08.093Z</updated>
     
     <content type="html"><![CDATA[<p>题目链接：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1000">HDU 1000</a>  </p>
 <p>我只记得这是我的第一题，还是WA。  </p>

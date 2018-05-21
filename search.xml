@@ -158,6 +158,7 @@
 <h3 id="更改项目git地址"><a href="#更改项目git地址" class="headerlink" title="更改项目git地址"></a>更改项目git地址</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git remote rm origin <span class="comment">#删除旧的git地址</span></div><div class="line">git remote add origin [url] <span class="comment">#添加新的git地址</span></div></pre></td></tr></table></figure>
 <h3 id="查看文件变更记录"><a href="#查看文件变更记录" class="headerlink" title="查看文件变更记录"></a>查看文件变更记录</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git <span class="built_in">log</span> -p file_name</div></pre></td></tr></table></figure>
 <h3 id="更新远程分支列表信息"><a href="#更新远程分支列表信息" class="headerlink" title="更新远程分支列表信息"></a>更新远程分支列表信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git remote update origin --prune</div></pre></td></tr></table></figure>
+<h3 id="忽略文件权限变动"><a href="#忽略文件权限变动" class="headerlink" title="忽略文件权限变动"></a>忽略文件权限变动</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">git config core.filemode <span class="literal">false</span></div></pre></td></tr></table></figure>
 ]]></content>
     </entry>
     
